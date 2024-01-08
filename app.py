@@ -23,11 +23,6 @@ class Partida:
             return f"{self.jogador1} x {self.jogador2}"
 
 
-N_COMPETIDORES = 9
-
-lista = [Jogador(i) for i in range(1, N_COMPETIDORES + 1)]
-
-
 def sorteio(sacola_de_sorteio):
 
     partidas = []
@@ -89,9 +84,12 @@ def informando_os_vencedores_da_rodada(partidas: list[Partida]) -> None:
         p.vencedor = getattr(p, f"jogador{i}")
 
 
+N_COMPETIDORES = 3
+
 if __name__ == "__main__":
 
-    times = lista.copy()
+    times = [Jogador(i) for i in range(1, N_COMPETIDORES + 1)]
+
     historico = []
 
     # rodada 1

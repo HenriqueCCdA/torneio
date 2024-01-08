@@ -53,35 +53,33 @@ def sorteando_as_partidas_da_primeira_rodada(times):
 
     n_times_ativos = 2 * n_div
 
-    i = randint(0, n_times_ativos - 1)
-    times_de_fora = sacola_de_sorteio.pop(i) # não é eficiente
+    if resto:
+        i = randint(0, n_times_ativos - 1)
+        time_de_fora = sacola_de_sorteio.pop(i) # não é eficiente
 
     partidas = sorteio(sacola_de_sorteio)
 
     # o time que sobra fica com ele mesmo, logo ele ganha a partida
     if resto:
-        partidas.append(Partida(times_de_fora, times_de_fora))
+        partidas.append(Partida(time_de_fora, time_de_fora))
 
     return partidas
 
 def proxima_rodada(partidas):
 
     n_div, resto = divmod(len(partidas), 2)
-    sacola_de_sorteio = [partida.vencedores for p in partidas]
-
+    sacola_de_sorteio = [p.vencedor for p in partidas]
     n_times_ativos = 2 * n_div
 
-    i = randint(0, n_times_ativos - 1)
-    times_de_fora = sacola_de_sorteio.pop(i) # não é eficiente
+    if resto:
+        i = randint(0, n_times_ativos - 1)
+        time_de_fora = sacola_de_sorteio.pop(i) # não é eficiente
 
-    partidas_novas = []
-
-    for i in range(0, len(partidas_ativas), 2):
-        partidas_novas.append(Partida(times_de_fora.vencedor, partidas[i+1].vencedor))
+    partidas_novas = sorteio(sacola_de_sorteio)
 
     # o time que sobra fica com ele mesmo, logo ele ganha a partida
     if resto:
-        partidas_novas.append(Partida(partidas[-1].vencedor, partidas[-1].vencedor))
+        partidas_novas.append(Partida(time_de_fora, time_de_fora))
 
     return partidas_novas
 
